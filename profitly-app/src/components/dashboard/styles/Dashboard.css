@@ -1,0 +1,26 @@
+.container-graph {
+  padding: 2rem;
+  border: 1px solid;
+  display: flex;
+  width: 85vw;
+  height: 50vh;
+  margin-top: 3.5rem;
+  margin-left: 15vw;
+  border-radius: 1rem;
+  background-color: whitesmoke;
+}
+.graph-display {
+  background-color: antiquewhite;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border: 1px solid red;
+  border-radius: 1rem;
+}
+.money-invested {
+  background-color: lightgray;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  border: 1px solid blue;
+}
