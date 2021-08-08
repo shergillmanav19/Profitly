@@ -14,7 +14,7 @@ export default function LandingPage() {
   return (
     <>
       {loggedIn === "true" ? "" : <Redirect to="/login" />}
-      <Sidebar />
+      {/* <Sidebar /> */}
       <Dashboard />
     </>
   );

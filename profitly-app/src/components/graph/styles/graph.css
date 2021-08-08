@@ -1,0 +1,12 @@
+.graph-container {
+  background: #f9f8f7;
+}
+
+.graph-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  width: 100vw;
+  max-height: 70vh;
+}
