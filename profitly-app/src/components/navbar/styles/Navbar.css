@@ -1,0 +1,33 @@
+.app-navbar-container {
+  padding: 0.5rem;
+  height: auto;
+  background-color: #3a4454;
+  width: 100%;
+  display: flex;
+  color: white;
+  justify-content: center;
+  position: fixed;
+}
+.nav-buttons {
+  width: 25%;
+  display: flex;
+  justify-content: space-around;
+}
+.nav-greeting {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.nav-logout {
+  width: 25%;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+}
+.dummy-nav-container {
+  height: 4rem;
+  background-color: #f9f8f7;
+}
