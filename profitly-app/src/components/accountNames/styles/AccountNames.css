@@ -1,0 +1,14 @@
+.account-names-container {
+  background: #f9f8f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+}
+.account-names-dropdown {
+  width: 10%;
+  margin-left: 4px;
+}
+.account-names-text {
+  font-weight: bold;
+}

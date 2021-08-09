@@ -15,7 +15,7 @@ export default function Card({
       marginTop="2px"
       borderRadius="4px"
       width={totalWidth}
-      padding="15px 0"
+      padding="15px 10px"
     >
       <HStack>
         <Box width={sectionWidth}>
@@ -29,7 +29,7 @@ export default function Card({
           </VStack>
         </Box>
         <Box width={sectionWidth}>
-          <VStack>
+          <VStack alignItems="flex-end">
             <Text>{price}</Text>
             <Text>USD</Text>
           </VStack>
@@ -38,8 +38,16 @@ export default function Card({
           <></>
         ) : (
           <>
-            <Box width={sectionWidth}></Box>
-            <Box width={sectionWidth}></Box>{" "}
+            <Box width={sectionWidth}>
+              <VStack alignItems="flex-end">
+                <Text>Hey</Text>
+              </VStack>
+            </Box>
+            <Box width={sectionWidth}>
+              <VStack alignItems="flex-end">
+                <Text>Hey</Text>
+              </VStack>
+            </Box>
           </>
         )}
       </HStack>

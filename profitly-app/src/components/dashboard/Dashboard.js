@@ -1,19 +1,14 @@
 //TODO: COMPONENTS SHOULD RENDER THEMSELVES NOT TOGETHER IN ONE FILES????? DONE DONE
 //TODO: MULTIPLE RENDERS HAPPENING WHEN I CLIKC A BUTTON DONE DONE
-import { React, useEffect, useState } from "react";
-import { Line } from "react-chartjs-2";
+import { React, useState } from "react";
+
 import "./styles/Dashboard.css";
-import { portfolioData } from "../../data/portfolioData";
-import Buttons from "../buttons/Buttons";
+
 import Graph from "../graph/Graph";
 import PortfolioPositions from "../positions/PortfolioPositions";
 import Watchlist from "../watchlist/Watchlist";
-import { Button, SliderProvider } from "@chakra-ui/react";
-import AccountNames from "../accountNames/AccountNames";
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+import AccountNames from "../accountNames/AccountNames";
 
 export default function Dashboard() {
   // const [wsLoggedIn, setWsLoggedIn] = useState("Failed");
@@ -57,7 +52,6 @@ export default function Dashboard() {
   };
   return (
     <>
-      {console.log("hello")}
       <div className="container-graph">
         <Graph accountName={accountName} />
         <AccountNames handleChange={handleAccountNameChange} />

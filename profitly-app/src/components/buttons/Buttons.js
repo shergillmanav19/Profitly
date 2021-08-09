@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { Button, ButtonGroup, Flex } from "@chakra-ui/react";
+import "./styles/Buttons.css";
 export default function Buttons(props) {
   // function handleHover() {
   //   setColor("black");

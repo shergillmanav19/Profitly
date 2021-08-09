@@ -6,7 +6,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 50vh;
-  width: 100vw;
-  max-height: 70vh;
+  height: 550px;
+}
+.custom-tooltip {
+  border-radius: 0.25rem;
+  background: #808386;
+  color: #fff;
+  padding: 1rem;
+  box-shadow: 15px 30px 40px 5px rgba(0, 0, 0, 0.5);
+  /* text-align: center; */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
