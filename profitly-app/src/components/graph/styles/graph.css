@@ -1,12 +1,13 @@
 .graph-container {
   background: #f9f8f7;
+  padding: 3px;
 }
 
 .graph-display {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 550px;
+  min-height: 550px;
 }
 .custom-tooltip {
   border-radius: 0.25rem;

@@ -9,25 +9,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { format, parseISO, subDays } from "date-fns";
-function giveMeTickCount(selectedButton) {
-  switch (selectedButton) {
-    case "1d":
-      return 8;
-    case "1w":
-      return 2;
-    case "1m":
-      return 10;
-    case "3m":
-      return 3;
-    case "1y":
-      return 6;
-    case "all":
-      return 6;
-    default:
-      break;
-  }
-}
+import { format, parseISO } from "date-fns";
+
 function CustomTooltip({ active, payload, label }) {
   if (active) {
     return (
@@ -49,12 +32,12 @@ export default function PrintGraph({ data, selectedButton }) {
       <AreaChart data={data}>
         <defs>
           <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#2451B7" stopOpacity={0.2} />
+            <stop offset="0%" stopColor="#5DA271" stopOpacity={0.2} />
             <stop offset="90%" stopColor="#f9f8f7" stopOpacity={1} />
           </linearGradient>
         </defs>
 
-        <Area dataKey="value" stroke="#2451B7" fill="url(#color)" />
+        <Area dataKey="value" stroke="#5DA271" fill="url(#color)" />
 
         <XAxis
           dataKey="date"
