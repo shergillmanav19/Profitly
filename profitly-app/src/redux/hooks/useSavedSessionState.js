@@ -2,10 +2,13 @@ import { useState } from "react";
 export const useSavedSessionState = () => {
   // Similar to useState but first arg is key to the value in local storage.
   const [loggedIn, setLoggedIn] = useLocalStorage("LoginState", "false");
+  const [username, setUsername] = useLocalStorage("Username", "");
   // console.log(loggedIn);
   return {
     loggedIn,
     setLoggedIn,
+    username,
+    setUsername,
   };
 };
 // Hook

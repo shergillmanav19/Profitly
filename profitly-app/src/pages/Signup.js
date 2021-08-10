@@ -1,14 +1,16 @@
 import React, { useRef, useState } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
+import { Form, Button, Card, Alert, InputGroup } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, Redirect } from "react-router-dom";
 import { useSavedSessionState } from "../redux/hooks/useSavedSessionState";
 
 export default function Signup() {
   const { loggedIn, setLoggedIn } = useSavedSessionState();
+  const { setUsername } = useSavedSessionState();
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
+  const usernameRef = useRef();
   const { signup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -22,13 +24,14 @@ export default function Signup() {
     try {
       setError("");
       setLoading(true);
+      setUsername(usernameRef);
       const signedUp = await signup(
         emailRef.current.value,
         passwordRef.current.value
       );
       if (signedUp) {
-        setLoading(false);
         setLoggedIn(true);
+        setLoading(false);
       } else {
         console.log("Sign Up not successful");
       }
@@ -45,6 +48,10 @@ export default function Signup() {
           <h2 className="text-center mb-4">Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
+            <Form.Group id="username">
+              <Form.Label>Username</Form.Label>
+              <Form.Control ref={usernameRef} required />
+            </Form.Group>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />

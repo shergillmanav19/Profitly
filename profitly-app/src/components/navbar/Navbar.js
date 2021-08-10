@@ -1,9 +1,11 @@
 import { Button } from "@chakra-ui/button";
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
+import { useSavedSessionState } from "../../redux/hooks/useSavedSessionState";
 import "./styles/Navbar.css";
 export default function Navbar({ handleLogout }) {
   const [isActive, setActive] = useState("main");
+  const { username } = useSavedSessionState();
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -29,7 +31,7 @@ export default function Navbar({ handleLogout }) {
             Crypto
           </Button>
         </div>
-        <div className="nav-greeting">Hello, Stranger</div>
+        <div className="nav-greeting">Hello, {username}</div>
         <div className="nav-logout">
           <Button bg="black" onClick={handleLogout}>
             Logout
