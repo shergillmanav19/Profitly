@@ -1,6 +1,5 @@
 import { Button } from "@chakra-ui/button";
 import React, { useState } from "react";
-import Logout from "../logout/Logout";
 import "./styles/Navbar.css";
 export default function Navbar({ handleLogout }) {
   const [isActive, setActive] = useState("");

@@ -45,7 +45,12 @@ export default function PrintGraph({ data, selectedButton }) {
           </linearGradient>
         </defs>
 
-        <Area dataKey="value" stroke="#5DA271" fill="url(#color)" />
+        <Area
+          dataKey="value"
+          type="monotone"
+          stroke="#5DA271"
+          fill="url(#color)"
+        />
 
         <XAxis
           dataKey="date"
