@@ -1,12 +1,15 @@
 import { Box, HStack, VStack, Text } from "@chakra-ui/react";
 import React from "react";
-
+import { BsFillCaretDownFill, BsFillCaretUpFill } from "react-icons/bs";
 export default function Card({
   symbol,
   name,
   price,
   totalWidth,
   sectionWidth,
+  marketValue,
+  currency,
+  allTimeReturn,
 }) {
   return (
     <Box
@@ -31,7 +34,7 @@ export default function Card({
         <Box width={sectionWidth}>
           <VStack alignItems="flex-end">
             <Text>{price}</Text>
-            <Text>USD</Text>
+            <Text>{currency}</Text>
           </VStack>
         </Box>
         {sectionWidth !== "33.33%" ? (
@@ -40,12 +43,20 @@ export default function Card({
           <>
             <Box width={sectionWidth}>
               <VStack alignItems="flex-end">
-                <Text>Hey</Text>
+                <Text>{marketValue}</Text>
+                <Text>{currency}</Text>
               </VStack>
             </Box>
             <Box width={sectionWidth}>
               <VStack alignItems="flex-end">
-                <Text>Hey</Text>
+                <Text>
+                  {allTimeReturn > 0 ? (
+                    <BsFillCaretUpFill color="green" />
+                  ) : (
+                    <BsFillCaretDownFill color="red" />
+                  )}
+                </Text>
+                <Text>{allTimeReturn}%</Text>
               </VStack>
             </Box>
           </>

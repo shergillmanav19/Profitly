@@ -4,6 +4,11 @@ import { React, useEffect, useState } from "react";
 import Card from "../card/Card";
 import Loading from "../loading/Loading";
 import "./styles/PortfolioPositions.css";
+
+function calcAllTimeReturn(moneyNow, moneyIPutIn) {
+  return (((moneyNow - moneyIPutIn) / moneyIPutIn) * 100).toFixed(2);
+}
+
 export default function PortfolioPositions({ accountName = "tfsa" }) {
   const [positionsData, setPositionsData] = useState([]);
 
@@ -23,6 +28,7 @@ export default function PortfolioPositions({ accountName = "tfsa" }) {
 
   return (
     <>
+      {" "}
       <div className="positions-container">
         <div className="positions">
           {positionsData.length === 0 ? (
@@ -81,6 +87,17 @@ export default function PortfolioPositions({ accountName = "tfsa" }) {
                       key={position.stock.symbol}
                       totalWidth={"95%"}
                       sectionWidth={"33.33%"}
+                      marketValue={
+                        position.todays_earnings_baseline_value.amount
+                      }
+                      currency={
+                        position.todays_earnings_baseline_value.currency
+                      }
+                      //allTimeReturn = (Market Value - Money I Invested)/(Money I Invested) * 100%
+                      allTimeReturn={calcAllTimeReturn(
+                        position.todays_earnings_baseline_value.amount,
+                        position.market_book_value.amount
+                      )}
                     />
                   ))}
                 </Box>
