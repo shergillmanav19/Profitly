@@ -1,8 +1,9 @@
 import { Button } from "@chakra-ui/button";
 import React, { useState } from "react";
+import { Link, Redirect } from "react-router-dom";
 import "./styles/Navbar.css";
 export default function Navbar({ handleLogout }) {
-  const [isActive, setActive] = useState("");
+  const [isActive, setActive] = useState("main");
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -10,18 +11,19 @@ export default function Navbar({ handleLogout }) {
   };
   return (
     <>
+      <Redirect to={`/${isActive}`} />
       <div className="app-navbar-container">
         <div className="nav-buttons">
           <Button
-            value="stocks"
-            bg={isActive === "stocks" ? "#5DA271" : "black"}
+            value="main"
+            bg={isActive.includes("main") ? "#5DA271" : "black"}
             onClick={handleClick}
           >
             Stocks
           </Button>
           <Button
             value="crypto"
-            bg={isActive === "crypto" ? "#5DA271" : "black"}
+            bg={isActive.includes("crypto") ? "#5DA271" : "black"}
             onClick={handleClick}
           >
             Crypto
