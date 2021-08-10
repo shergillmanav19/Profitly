@@ -40,7 +40,7 @@ export default function Signup() {
   return (
     <>
       <Card>
-        {loggedIn ? <Redirect to="/main" /> : " "}
+        {loggedIn === "true" ? <Redirect to="/main" /> : " "}
         <Card.Body>
           <h2 className="text-center mb-4">Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}
