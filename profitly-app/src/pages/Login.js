@@ -59,7 +59,10 @@ export default function Login() {
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        New to Profitly? <Link to="/">Sign Up Here</Link>
+        New to Profitly?{" "}
+        <Link style={{ color: "#0C5ED7" }} to="/">
+          Sign Up Here
+        </Link>
       </div>
     </>
   );
