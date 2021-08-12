@@ -12,22 +12,31 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    try {
-      setError("");
-      setLoading(true);
-      const loginSuccessful = login(
-        emailRef.current.value,
-        passwordRef.current.value
-      );
-      if (loginSuccessful) {
-        setLoggedIn("true");
-      }
-    } catch {
-      setError("Sorry, we failed to log you in");
+    setError("");
+    setLoading(true);
+
+    const status = await login(
+      emailRef.current.value,
+      passwordRef.current.value
+    );
+    console.log(status);
+    if (status.status) {
+      setLoggedIn("true");
+    } else {
+      setError("Incorrect login information");
     }
+    // console.log(loginStatus);
+    // if (loginStatus.status) {
+    //   // setLoggedIn("true");
+    // } else {
+    //   setError(loginStatus.errorMessage);
+    // }
+    // console.log("Hello");
+    // console.log(loginStatus);
+    // setError("Sorry, we failed to log you in");
     setLoading(false);
   }
 
@@ -38,7 +47,7 @@ export default function Login() {
         <Card.Body>
           <h2 className="text-center mb-4">Log In</h2>
           {error && <Alert variant="danger">{error}</Alert>}
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />
@@ -47,12 +56,7 @@ export default function Login() {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
-            <Button
-              disabled={loading}
-              onClick={handleSubmit}
-              className="w-100"
-              type="submit"
-            >
+            <Button disabled={loading} className="w-100" type="submit">
               Log In
             </Button>
           </Form>

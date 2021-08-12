@@ -7,14 +7,21 @@ import PortfolioPositions from "../positions/PortfolioPositions";
 import Watchlist from "../watchlist/Watchlist";
 
 import AccountNames from "../accountNames/AccountNames";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import { useSavedSessionState } from "../../redux/hooks/useSavedSessionState";
 
 export default function Dashboard() {
   const [accountName, setAccountName] = useState("tfsa");
+  const { loggedIn } = useSavedSessionState();
 
   const handleAccountNameChange = (e) => {
     e.preventDefault();
     setAccountName(e.target.value);
   };
+
+  if (loggedIn === "false") {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <>

@@ -16,9 +16,11 @@ export default function LandingPage() {
     setLoggedIn("false");
   };
 
+  if (loggedIn === "false") {
+    return <Redirect to="/login" />;
+  }
   return (
     <>
-      {loggedIn === "true" ? "" : <Redirect to="/login" />}
       <Navbar handleLogout={handleLogout} />
       <Dashboard />
     </>

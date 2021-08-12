@@ -24,7 +24,7 @@ export default function Signup() {
     try {
       setError("");
       setLoading(true);
-      setUsername(usernameRef);
+      setUsername(usernameRef.current.value);
       const signedUp = await signup(
         emailRef.current.value,
         passwordRef.current.value
