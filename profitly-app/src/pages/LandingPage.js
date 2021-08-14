@@ -1,27 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 
 import "./styles/LandingPage.css";
 
-import { Link, Redirect } from "react-router-dom";
-import Sidebar from "../components/sidebar/Sidebar";
+import { useHistory } from "react-router-dom";
 
-import { useSavedSessionState } from "../redux/hooks/useSavedSessionState";
 import Dashboard from "../components/dashboard/Dashboard";
 import Navbar from "../components/navbar/Navbar";
+import { Alert } from "react-bootstrap";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function LandingPage() {
-  const { loggedIn, setLoggedIn } = useSavedSessionState();
+  const [error, setError] = useState("");
+  const { logout } = useAuth();
+  const history = useHistory();
 
-  const handleLogout = () => {
-    setLoggedIn("false");
-  };
-
-  if (loggedIn === "false") {
-    return <Redirect to="/login" />;
+  async function handleLogout() {
+    try {
+      setError("");
+      await logout();
+      history.push("/login");
+    } catch {
+      setError("Failed to log out");
+    }
   }
+
   return (
     <>
       <Navbar handleLogout={handleLogout} />
+      {error && <Alert variant="danger">{error}</Alert>}
       <Dashboard />
     </>
   );

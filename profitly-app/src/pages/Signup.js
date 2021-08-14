@@ -1,57 +1,50 @@
 import React, { useRef, useState } from "react";
-import { Form, Button, Card, Alert, InputGroup } from "react-bootstrap";
+import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, Redirect } from "react-router-dom";
-import { useSavedSessionState } from "../redux/hooks/useSavedSessionState";
+import { Link, useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 export default function Signup() {
-  const { loggedIn, setLoggedIn } = useSavedSessionState();
-  const { setUsername } = useSavedSessionState();
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const usernameRef = useRef();
-  const { signup } = useAuth();
+  const { signup, currentUser } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
+
   async function handleSubmit(e) {
     e.preventDefault();
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match");
     }
+    if (passwordRef.current.value.length < 6) {
+      return setError("Password must be 6 or more characters");
+    }
 
     try {
       setError("");
       setLoading(true);
-      setUsername(usernameRef.current.value);
-      const signedUp = await signup(
-        emailRef.current.value,
-        passwordRef.current.value
-      );
-      if (signedUp) {
-        setLoggedIn(true);
-        setLoading(false);
-      } else {
-        console.log("Sign Up not successful");
-      }
+      await signup(emailRef.current.value, passwordRef.current.value);
+      history.push("/main");
     } catch {
-      setError("Sorry, we failed to create an account");
+      setError("Failed to create an account");
     }
+
+    setLoading(false);
   }
 
+  if (currentUser) {
+    return <Redirect to="/main" />;
+  }
   return (
     <>
       <Card>
-        {loggedIn === "true" ? <Redirect to="/main" /> : " "}
         <Card.Body>
           <h2 className="text-center mb-4">Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
-            <Form.Group id="username">
-              <Form.Label>Username</Form.Label>
-              <Form.Control ref={usernameRef} required />
-            </Form.Group>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />
