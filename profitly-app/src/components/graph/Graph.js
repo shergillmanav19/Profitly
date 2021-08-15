@@ -18,7 +18,7 @@ export default function Graph({ accountName = "tfsa" }) {
     //set to empty so loading happens when account name changes
     setPortfolioData([]);
 
-    const request = async () =>
+    const request = async () => {
       await fetch(`/api/ws/getHistoricalData/${selectedButton}/${accountName}`)
         .then((response) => {
           if (response.ok) {
@@ -29,9 +29,10 @@ export default function Graph({ accountName = "tfsa" }) {
         })
         .then((data) => {
           setPortfolioData(data.ws_dataset);
+          console.log(data.ws_dataset);
         })
         .catch((error) => console.log(error));
-
+    };
     request();
   }, [accountName, selectedButton]);
 
