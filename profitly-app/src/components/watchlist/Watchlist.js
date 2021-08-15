@@ -4,6 +4,7 @@ import Card from "../card/Card";
 import "./styles/Watchlist.css";
 import Loading from "../loading/Loading";
 import { Flex, Box } from "@chakra-ui/layout";
+import { Button } from "@chakra-ui/button";
 function Watchlist() {
   const [watchlistData, setWatchlistData] = useState([]);
 
@@ -23,24 +24,28 @@ function Watchlist() {
   return (
     <>
       <div className="watchlist-container">
-        Your Watchlist
         {watchlistData.length === 0 ? (
           <Loading />
         ) : (
-          <Flex direction="column">
+          <>
             <Box padding="4px">
-              {watchlistData.ws_watchlist.map((stock) => (
-                <Card
-                  symbol={stock.stock.symbol}
-                  name={stock.stock.name}
-                  price={stock.quote.amount}
-                  key={stock.stock.symbol}
-                  totalWidth={"100%"}
-                  sectionWidth={"50%"}
-                />
-              ))}
+              <Button>Watchlist</Button>
             </Box>
-          </Flex>
+            <Flex direction="column">
+              <Box padding="4px">
+                {watchlistData.ws_watchlist.map((stock) => (
+                  <Card
+                    symbol={stock.stock.symbol}
+                    name={stock.stock.name}
+                    price={stock.quote.amount}
+                    key={stock.stock.symbol}
+                    totalWidth={"100%"}
+                    sectionWidth={"50%"}
+                  />
+                ))}
+              </Box>
+            </Flex>
+          </>
         )}
       </div>
     </>

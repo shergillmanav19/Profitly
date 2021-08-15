@@ -4,17 +4,24 @@ import { React, useEffect, useState } from "react";
 import Card from "../card/Card";
 import Loading from "../loading/Loading";
 import "./styles/PortfolioPositions.css";
-
+import { Button } from "@chakra-ui/react";
 function calcAllTimeReturn(moneyNow, moneyIPutIn) {
   return (((moneyNow - moneyIPutIn) / moneyIPutIn) * 100).toFixed(2);
 }
 
 export default function PortfolioPositions({ accountName = "tfsa" }) {
-  const [positionsData, setPositionsData] = useState([]);
+  const [WS_positionsData, set_WS_PositionsData] = useState([]);
+  const [QT_positionsData, set_QT_PositionsData] = useState([]);
+  const [activePortfolioPositions, setactivePortfolioPositions] =
+    useState("ws");
+
+  const handleClick = (e) => {
+    setactivePortfolioPositions(e.target.value);
+  };
 
   useEffect(() => {
-    setPositionsData([]);
-    fetch(`/api/ws/getPositions/${accountName}`)
+    set_WS_PositionsData([]);
+    fetch(`/api/stocks/getPositions/${accountName}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -22,20 +29,48 @@ export default function PortfolioPositions({ accountName = "tfsa" }) {
           throw new Error("Something went wrong");
         }
       })
-      .then((data) => setPositionsData(data))
+      .then((data) => {
+        set_WS_PositionsData(data.ws_positions);
+        set_QT_PositionsData(data.qt_positions);
+      })
       .catch((error) => console.log(error));
   }, [accountName]);
 
   return (
     <>
-      {" "}
       <div className="positions-container">
         <div className="positions">
-          {positionsData.length === 0 ? (
+          {WS_positionsData.length === 0 || QT_positionsData.length === 0 ? (
             <Loading />
           ) : (
             <>
-              Your Portfolio Positions
+              <Box padding="4px">
+                <Button
+                  value="ws"
+                  color="white"
+                  bg={
+                    activePortfolioPositions.includes("ws")
+                      ? "#5DA271"
+                      : "black"
+                  }
+                  onClick={handleClick}
+                >
+                  WS Trade Positions
+                </Button>
+                {"  "}
+                <Button
+                  value="qt"
+                  color="white"
+                  bg={
+                    activePortfolioPositions.includes("qt")
+                      ? "#5DA271"
+                      : "black"
+                  }
+                  onClick={handleClick}
+                >
+                  Questrade Positions
+                </Button>
+              </Box>
               <Flex flexDirection="column">
                 <Box padding="4px">
                   <Box
@@ -79,27 +114,45 @@ export default function PortfolioPositions({ accountName = "tfsa" }) {
                       </Box>{" "}
                     </HStack>
                   </Box>
-                  {positionsData.ws_positions.map((position) => (
-                    <Card
-                      symbol={position.stock.symbol}
-                      name={position.stock.name}
-                      price={position.quote.amount}
-                      key={position.stock.symbol}
-                      totalWidth={"95%"}
-                      sectionWidth={"33.33%"}
-                      marketValue={
-                        position.todays_earnings_baseline_value.amount
-                      }
-                      currency={
-                        position.todays_earnings_baseline_value.currency
-                      }
-                      //allTimeReturn = (Market Value - Money I Invested)/(Money I Invested) * 100%
-                      allTimeReturn={calcAllTimeReturn(
-                        position.todays_earnings_baseline_value.amount,
-                        position.market_book_value.amount
-                      )}
-                    />
-                  ))}
+                  {activePortfolioPositions.includes("ws")
+                    ? WS_positionsData.map((position) => (
+                        <Card
+                          symbol={position.stock.symbol}
+                          name={position.stock.name}
+                          price={position.quote.amount}
+                          key={position.stock.symbol}
+                          totalWidth={"95%"}
+                          sectionWidth={"33.33%"}
+                          marketValue={
+                            position.todays_earnings_baseline_value.amount
+                          }
+                          currency={
+                            position.todays_earnings_baseline_value.currency
+                          }
+                          //allTimeReturn = (Market Value - Money I Invested)/(Money I Invested) * 100%
+                          allTimeReturn={calcAllTimeReturn(
+                            position.todays_earnings_baseline_value.amount,
+                            position.market_book_value.amount
+                          )}
+                        />
+                      ))
+                    : QT_positionsData.map((position) => (
+                        <Card
+                          symbol={position.symbol}
+                          name={""}
+                          price={position.currentPrice}
+                          key={position.symbolId}
+                          totalWidth={"95%"}
+                          sectionWidth={"33.33%"}
+                          marketValue={position.currentMarketValue}
+                          currency={"USD"}
+                          //allTimeReturn = (Market Value - Money I Invested)/(Money I Invested) * 100%
+                          allTimeReturn={calcAllTimeReturn(
+                            position.currentMarketValue,
+                            position.totalCost
+                          )}
+                        />
+                      ))}
                 </Box>
               </Flex>
             </>

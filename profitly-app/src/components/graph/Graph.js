@@ -19,7 +19,7 @@ export default function Graph({ accountName = "tfsa" }) {
     setPortfolioData([]);
 
     const request = async () => {
-      await fetch(`/api/ws/getHistoricalData/${selectedButton}/${accountName}`)
+      await fetch(`/api/stocks/getBalance/${selectedButton}/${accountName}`)
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -28,8 +28,8 @@ export default function Graph({ accountName = "tfsa" }) {
           }
         })
         .then((data) => {
-          setPortfolioData(data.ws_dataset);
-          console.log(data.ws_dataset);
+          setPortfolioData(data.data);
+          // console.log(data.ws_dataset);
         })
         .catch((error) => console.log(error));
     };
