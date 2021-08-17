@@ -36,7 +36,7 @@ export default function Navbar({ handleLogout }) {
           </Button>{" "}
         </div>
       </div>
-      <div className="dummy-nav-container"></div>
+      {/* <div className="dummy-nav-container"></div> */}
     </>
   );
 }

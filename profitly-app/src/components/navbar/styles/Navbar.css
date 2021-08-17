@@ -6,7 +6,7 @@
   display: flex;
   color: white;
   justify-content: center;
-  position: fixed;
+  /* position: fixed; */
 }
 .nav-buttons {
   width: 25%;

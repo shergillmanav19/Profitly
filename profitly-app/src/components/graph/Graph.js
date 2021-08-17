@@ -29,7 +29,7 @@ export default function Graph({ accountName = "tfsa" }) {
         })
         .then((data) => {
           setPortfolioData(data.data);
-          // console.log(data.ws_dataset);
+          console.log(data);
         })
         .catch((error) => console.log(error));
     };

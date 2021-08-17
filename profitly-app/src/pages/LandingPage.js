@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import "./styles/LandingPage.css";
-
+import ScrollToTop from "react-scroll-to-top";
 import { useHistory } from "react-router-dom";
 
 import Dashboard from "../components/dashboard/Dashboard";
@@ -26,6 +26,7 @@ export default function LandingPage() {
 
   return (
     <>
+      <ScrollToTop smooth={true} top={100} />
       <Navbar handleLogout={handleLogout} />
       {error && <Alert variant="danger">{error}</Alert>}
       <Dashboard />

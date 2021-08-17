@@ -1,5 +1,4 @@
 import { React, useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import Card from "../card/Card";
 import "./styles/Watchlist.css";
 import Loading from "../loading/Loading";
@@ -29,7 +28,9 @@ function Watchlist() {
         ) : (
           <>
             <Box padding="4px">
-              <Button>Watchlist</Button>
+              <Button value="qt" color="white" bg={"orange"}>
+                Watchlist
+              </Button>
             </Box>
             <Flex direction="column">
               <Box padding="4px">
