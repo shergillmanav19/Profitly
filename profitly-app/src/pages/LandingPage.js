@@ -8,7 +8,7 @@ import Dashboard from "../components/dashboard/Dashboard";
 import Navbar from "../components/navbar/Navbar";
 import { Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
-
+import { ChevronUpIcon } from "@chakra-ui/icons";
 export default function LandingPage() {
   const [error, setError] = useState("");
   const { logout } = useAuth();
@@ -26,7 +26,17 @@ export default function LandingPage() {
 
   return (
     <>
-      <ScrollToTop smooth={true} top={100} />
+      <ScrollToTop
+        smooth={true}
+        top={20}
+        style={{
+          margin: "0px",
+          borderRadius: "100%",
+          border: "4px solid #5DA271",
+          backgroundColor: "black	",
+        }}
+        component={<ChevronUpIcon color="white" w={6} h={6} />}
+      />
       <Navbar handleLogout={handleLogout} />
       {error && <Alert variant="danger">{error}</Alert>}
       <Dashboard />

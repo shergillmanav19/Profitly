@@ -6,9 +6,12 @@
   padding-top: 20px;
 }
 .account-names-dropdown {
-  width: 10%;
+  width: 50%;
   margin-left: 4px;
 }
 .account-names-text {
   font-weight: bold;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
