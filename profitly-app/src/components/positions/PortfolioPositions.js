@@ -23,21 +23,25 @@ export default function PortfolioPositions({ accountName = "tfsa" }) {
 
   useEffect(() => {
     set_WS_PositionsData([]);
-    fetch(`/api/stocks/getPositions/${accountName}`)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Something went wrong");
-        }
-      })
-      .then((data) => {
-        set_WS_PositionsData(data.ws_positions);
-        set_QT_PositionsData(data.qt_positions);
-        set_WS_netDeposit(Number(data.ws_netDeposit).toFixed(0));
-        set_QT_netDeposit(Number(data.qt_netDeposit).toFixed(0));
-      })
-      .catch((error) => console.log(error));
+
+    const request = async () =>
+      await fetch(`/api/stocks/getPositions/${accountName}`)
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Something went wrong");
+          }
+        })
+        .then((data) => {
+          set_WS_PositionsData(data.ws_positions);
+          set_QT_PositionsData(data.qt_positions);
+          set_WS_netDeposit(Number(data.ws_netDeposit).toFixed(0));
+          set_QT_netDeposit(Number(data.qt_netDeposit).toFixed(0));
+        })
+        .catch((error) => console.log(error));
+
+    request();
   }, [accountName]);
 
   return (
