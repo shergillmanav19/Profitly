@@ -8,6 +8,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  Text,
 } from "recharts";
 import { format, parseISO } from "date-fns";
 
@@ -15,14 +16,28 @@ function CustomTooltip({ active, payload, label }) {
   if (active) {
     return (
       <div className="custom-tooltip">
-        <p>Date: {format(parseISO(label), "eeee, d MMM, yyyy")}</p>
-        <p>Portfolio Value: ${payload[0].value.toFixed(2)} CAD</p>
+        <p style={{ fontWeight: "bold" }}>
+          Date: {format(parseISO(label), "eeee, d MMM, yyyy")}
+        </p>
+        <p style={{ fontWeight: "bold" }}>
+          Portfolio Value:{" "}
+          <span style={{ color: "orange" }}>
+            ${payload[0].value.toFixed(0)} CAD
+          </span>
+        </p>
+        <p style={{ fontWeight: "bold" }}>
+          Initial Deposit:{" "}
+          <span style={{ color: "black" }}>
+            {" "}
+            ${payload[0].payload.netDeposit.toFixed(0)} CAD{" "}
+          </span>
+        </p>
       </div>
     );
   }
   return null;
 }
-export default function PrintGraph({ data, selectedButton }) {
+export default function PrintGraph({ data, selectedButton, netDeposit }) {
   const range = data.map((obj) => obj.value);
   const min = Math.floor(Math.min(...range));
   const max = Math.ceil(Math.max(...range));

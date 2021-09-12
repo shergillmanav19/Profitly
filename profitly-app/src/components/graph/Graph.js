@@ -5,7 +5,7 @@ import PrintGraph from "./PrintGraph";
 import "./styles/graph.css";
 export default function Graph({ accountName = "tfsa" }) {
   const [portfolioData, setPortfolioData] = useState([]);
-
+  const [netDeposit, setNetDeposit] = useState([]);
   const [selectedButton, setSelectedButton] = useState("1m");
 
   const handleTimeButtonClick = (e) => {
@@ -29,6 +29,7 @@ export default function Graph({ accountName = "tfsa" }) {
         })
         .then((data) => {
           setPortfolioData(data.data);
+          setNetDeposit(data.netDeposit);
           console.log(data);
         })
         .catch((error) => console.log(error));
@@ -45,7 +46,11 @@ export default function Graph({ accountName = "tfsa" }) {
           </div>
         ) : (
           <div>
-            <PrintGraph data={portfolioData} selectedButton={selectedButton} />
+            <PrintGraph
+              data={portfolioData}
+              netDeposit={netDeposit}
+              selectedButton={selectedButton}
+            />
           </div>
         )}
       </div>
