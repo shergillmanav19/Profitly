@@ -27,7 +27,8 @@ export default function Signup() {
       setError("");
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
-      history.push("/main");
+      // history.push("/main");
+      history.push("/stocksauth");
     } catch {
       setError("Failed to create an account");
     }
@@ -36,7 +37,8 @@ export default function Signup() {
   }
 
   if (currentUser) {
-    return <Redirect to="/main" />;
+    // return <Redirect to="/main" />;
+    return <Redirect to="/stocksauth" />;
   }
   return (
     <>

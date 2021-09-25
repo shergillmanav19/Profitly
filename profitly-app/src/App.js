@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import "./App.css";
 import CryptoDashboard from "./CryptoDashboard";
 import PrivateRoute from "./components/privateRoutes/PrivateRoute";
+import StocksAuth from "./pages/StocksAuth";
 function App() {
   return (
     // <div className="w-100" style={{ maxWidth: "400px" }}>
@@ -21,6 +22,7 @@ function App() {
           <PrivateRoute path="/main" component={LandingPage} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
           <PrivateRoute path="/crypto" component={CryptoDashboard} />
+          <PrivateRoute path="/stocksauth" component={StocksAuth} />
         </Switch>
       </Router>
     </AuthProvider>

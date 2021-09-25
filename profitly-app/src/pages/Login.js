@@ -18,7 +18,8 @@ export default function Login() {
       setError("");
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      history.push("/main");
+      // history.push("/main");
+      history.push("/stocksauth");
     } catch {
       setError("Failed to log in");
     }
@@ -27,7 +28,8 @@ export default function Login() {
   }
 
   if (currentUser) {
-    return <Redirect to="/main" />;
+    // return <Redirect to="/main" />;
+    return <Redirect to="/stocksauth" />;
   }
 
   return (
