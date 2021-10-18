@@ -13,19 +13,43 @@ export default function StocksAuth() {
 
   //questrade login process
   let curURL = useLocation();
-  curURL = curURL.search;
-  let code;
-  if (curURL.includes("code")) {
-    code = curURL.match("code=.*$");
-    code = code.toString().split("=")[1];
-    console.log(code);
+  curURL = curURL.hash;
+  let data = "";
+
+  if (curURL.includes("#")) {
+    const hash_part = curURL.split("#")[1];
+    const get_data = hash_part.split("&");
+
+    const access_token = get_data[0].split("=")[1];
+    const refresh_token = get_data[1].split("=")[1];
+    const token_type = "Bearer";
+    const expires_in = get_data[3].split("=")[1];
+    const api_server = get_data[4].split("=")[1];
+
+    data = new URLSearchParams({
+      access_token: access_token,
+      refresh_token: refresh_token,
+      token_type: token_type,
+      expires_in: expires_in,
+      api_server: api_server,
+    });
+    // console.log(data);
   }
   //-----------------------------------------
   const [error, setError] = useState("");
   const { logout } = useAuth();
   useEffect(() => {
-    if (code !== "") {
-      fetch(`${backend}/api/stocks/login/${code}`)
+    if (data !== "") {
+      fetch(`${backend}/api/stocks/login`, {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors",
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {
+          // "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: data, // body data type must match "Content-Type" header
+      })
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -33,9 +57,10 @@ export default function StocksAuth() {
             throw new Error("Something went wrong");
           }
         })
+        .then((response) => console.log(response))
         .catch((error) => console.log(error));
     }
-  }, [backend, code]);
+  }, [backend, data]);
 
   async function handleLogin() {
     try {
@@ -55,12 +80,13 @@ export default function StocksAuth() {
     <>
       <VStack>
         <Navbar handleLogout={handleLogout} />
-        <a
+        <div>TEST</div>
+        {/* <a
           href={`https://login.questrade.com/oauth2/authorize?client_id=${qtrade_key}&response_type=code&redirect_uri=https://auth-profitly-dev.web.app/stocksauth`}
-        >
-          {/* <a
-          href={`https://login.questrade.com/oauth2/authorize?client_id=${qtrade_key}&response_type=token&redirect_uri=https://profitly-api.herokuapp.com/api/stocks/login`}
         > */}
+        <a
+          href={`https://login.questrade.com/oauth2/authorize?client_id=${qtrade_key}&response_type=token&redirect_uri=https://auth-profitly-dev.web.app/stocksauth`}
+        >
           <Button>Questrade Login</Button>
         </a>
         {/* </a> */}
