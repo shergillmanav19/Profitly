@@ -33,7 +33,6 @@ export default function StocksAuth() {
       expires_in: expires_in,
       api_server: api_server,
     });
-    // console.log(data);
   }
   //-----------------------------------------
   const [error, setError] = useState("");
@@ -79,17 +78,14 @@ export default function StocksAuth() {
   return (
     <>
       <VStack>
+        {error}
         <Navbar handleLogout={handleLogout} />
-        <div>TEST</div>
-        {/* <a
-          href={`https://login.questrade.com/oauth2/authorize?client_id=${qtrade_key}&response_type=code&redirect_uri=https://auth-profitly-dev.web.app/stocksauth`}
-        > */}
+
         <a
           href={`https://login.questrade.com/oauth2/authorize?client_id=${qtrade_key}&response_type=token&redirect_uri=https://auth-profitly-dev.web.app/stocksauth`}
         >
           <Button>Questrade Login</Button>
         </a>
-        {/* </a> */}
         <Button>WealthSimple Login</Button>
         <Button onClick={handleLogin}>Go to Stocks</Button>
       </VStack>
