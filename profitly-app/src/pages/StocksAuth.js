@@ -75,6 +75,7 @@ export default function StocksAuth() {
       setError("Failed to log out");
     }
   }
+
   return (
     <>
       <VStack>
@@ -86,6 +87,7 @@ export default function StocksAuth() {
         >
           <Button>Questrade Login</Button>
         </a>
+
         <Button>WealthSimple Login</Button>
         <Button onClick={handleLogin}>Go to Stocks</Button>
       </VStack>
