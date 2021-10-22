@@ -10,7 +10,11 @@ export default function PrivateRoute({ component: Component, ...rest }) {
       {...rest}
       render={(props) => {
         return currentUser ? (
-          <Component {...props} />
+          currentUser.uid === process.env.REACT_APP_ADMIN_UID ? (
+            <Component {...props} />
+          ) : (
+            <Redirect to="/unauthorized" />
+          )
         ) : (
           <Redirect to="/login" />
         );
