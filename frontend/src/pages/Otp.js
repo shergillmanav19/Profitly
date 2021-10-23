@@ -1,20 +1,77 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./styles/Otp.css";
-export default function Otp() {
-  const otpRef = useRef();
+import { Form, Button, Card, Alert, Container } from "react-bootstrap";
+import { useHistory, useLocation, Redirect } from "react-router-dom";
 
-  function handleSubmit() {}
+export default function Otp() {
+  //ENV VAR
+  const backend = process.env.REACT_APP_BACKEND_URL;
+  // -----------------------------------------------
+  const otpRef = useRef();
+  const history = useHistory();
+  const [error, setError] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const otp = new URLSearchParams({
+      otp: otpRef.current.value,
+    });
+    fetch(`${backend}/api/stocks/ws-otp`, {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors",
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      headers: {
+        // "Content-Type": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: otp, // body data type must match "Content-Type" header
+    }).then((response) => {
+      if (response.status === 200) {
+        history.push("/main");
+      } else {
+        setError("The code you entered is invalid!");
+      }
+    });
+
+    // code not invalid then only push main
+  }
 
   return (
-    <>
-      <div className="form-container">Hi</div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Enter your OTP :
-          <input type="number" name="otp" ref={otpRef} bg="red" />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    </>
+    <Container
+      className="d-flex align-items-center justify-content-center"
+      style={{ minHeight: "100vh" }}
+    >
+      <div className="w-100" style={{ maxWidth: "500px" }}>
+        {error && <Alert variant="danger">{error}</Alert>}
+
+        <Card>
+          <Card.Body>
+            <p className="mb-4 h2">
+              Check your text messages for a 6-digit code
+            </p>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group id="otp">
+                <Form.Label className="mb-4">
+                  Enter the code we sent to your phone number below.
+                </Form.Label>
+                <Form.Control
+                  className="mb-4"
+                  type="number"
+                  ref={otpRef}
+                  required
+                />
+              </Form.Group>
+              <Button
+                className="w-100 text-center mt-2"
+                style={{ backgroundColor: "green", border: "none" }}
+                type="submit"
+              >
+                Submit
+              </Button>
+            </Form>
+          </Card.Body>
+        </Card>
+      </div>
+    </Container>
   );
 }

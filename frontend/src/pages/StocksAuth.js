@@ -76,17 +76,16 @@ export default function StocksAuth() {
     }
   }
   function handleWSLogin() {
-    // fetch(`${backend}/api/stocks/ws-login`)
-    //   .then((response) => {
-    //     if (!response.data === "OTP") {
-    //       setError(response.data);
-    //     } else {
-    //       <Redirect to="/enter-otp" />;
-    //     }
-    //   })
-    //   .catch((error) => setError(error));
+    fetch(`${backend}/api/stocks/ws-login`)
+      .then((response) => {
+        if (!response.data === "OTP") {
+          setError(response.data);
+        } else {
+          history.push("/enter-otp");
+        }
+      })
+      .catch((error) => setError(error));
     console.log("Hello");
-    history.push("/enter-otp");
   }
   return (
     <>

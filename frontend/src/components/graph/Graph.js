@@ -4,6 +4,9 @@ import Loading from "../loading/Loading";
 import PrintGraph from "./PrintGraph";
 import "./styles/graph.css";
 export default function Graph({ accountName = "tfsa" }) {
+  //ENV VAR
+  const backend = process.env.REACT_APP_BACKEND_URL;
+  // -----------------------------------------------
   const [portfolioData, setPortfolioData] = useState([]);
   const [netDeposit, setNetDeposit] = useState([]);
   const [selectedButton, setSelectedButton] = useState("1m");
@@ -19,7 +22,9 @@ export default function Graph({ accountName = "tfsa" }) {
     setPortfolioData([]);
 
     const request = async () => {
-      await fetch(`/api/stocks/getBalance/${selectedButton}/${accountName}`)
+      await fetch(
+        `${backend}/api/stocks/getBalance/${selectedButton}/${accountName}`
+      )
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -35,7 +40,7 @@ export default function Graph({ accountName = "tfsa" }) {
         .catch((error) => console.log(error));
     };
     request();
-  }, [accountName, selectedButton]);
+  }, [accountName, backend, selectedButton]);
 
   return (
     <>

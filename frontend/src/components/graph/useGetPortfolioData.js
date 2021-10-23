@@ -4,8 +4,15 @@ export default function useGetPortfolioData() {
   const [loading, setLoading] = useState(false);
   const funtionretrevial = useCallback((selectedButton, accountName) => {
     // default to 1m and tfsa
+
+    //ENV VAR
+    const backend = process.env.REACT_APP_BACKEND_URL;
+    // -----------------------------------------------
+
     setLoading(true);
-    fetch(`/api/ws/getHistoricalData/${selectedButton}/${accountName}`)
+    fetch(
+      `${backend}/api/ws/getHistoricalData/${selectedButton}/${accountName}`
+    )
       .then((response) => {
         if (response.ok) {
           return response.json();
