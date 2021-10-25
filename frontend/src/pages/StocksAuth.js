@@ -24,7 +24,9 @@ export default function StocksAuth() {
     const refresh_token = get_data[1].split("=")[1];
     const token_type = "Bearer";
     const expires_in = get_data[3].split("=")[1];
-    const api_server = get_data[4].split("=")[1];
+    let api_server = get_data[4].split("=")[1];
+    // the '/' at the end isnt needed
+    api_server = api_server.substring(0, api_server.length - 1);
 
     qt_data = new URLSearchParams({
       access_token: access_token,
@@ -41,7 +43,7 @@ export default function StocksAuth() {
     if (qt_data !== "") {
       fetch(`${backend}/api/stocks/qt-login`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
-        mode: "cors",
+        mode: "no-cors",
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
         headers: {
           // "Content-Type": "application/json",

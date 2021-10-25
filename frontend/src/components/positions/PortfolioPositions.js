@@ -10,9 +10,6 @@ function calcAllTimeReturn(moneyNow, moneyIPutIn) {
 }
 
 export default function PortfolioPositions({ accountName = "tfsa" }) {
-  //ENV VAR
-  const backend = process.env.REACT_APP_BACKEND_URL;
-  // -----------------------------------------------
   const [WS_positionsData, set_WS_PositionsData] = useState([]);
   const [QT_positionsData, set_QT_PositionsData] = useState([]);
   const [WS_netDeposit, set_WS_netDeposit] = useState();
@@ -26,7 +23,9 @@ export default function PortfolioPositions({ accountName = "tfsa" }) {
 
   useEffect(() => {
     set_WS_PositionsData([]);
-
+    //ENV VAR
+    const backend = process.env.REACT_APP_BACKEND_URL;
+    // -----------------------------------------------
     const request = async () =>
       await fetch(`${backend}/api/stocks/getPositions/${accountName}`)
         .then((response) => {

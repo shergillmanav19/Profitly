@@ -6,10 +6,9 @@ import { Flex, Box } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 function Watchlist() {
   const [watchlistData, setWatchlistData] = useState([]);
-  //ENV VAR
-  const backend = process.env.REACT_APP_BACKEND_URL;
-  // -----------------------------------------------
+
   useEffect(() => {
+    const backend = process.env.REACT_APP_BACKEND_URL;
     fetch(`${backend}/api/ws/getWatchlist`)
       .then((response) => {
         if (response.ok) {
@@ -20,7 +19,7 @@ function Watchlist() {
       })
       .then((data) => setWatchlistData(data))
       .catch((error) => console.log(error));
-  }, [backend]);
+  }, []);
 
   return (
     <>
