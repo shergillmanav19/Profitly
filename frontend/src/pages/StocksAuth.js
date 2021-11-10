@@ -24,7 +24,7 @@ export default function StocksAuth() {
     const refresh_token = get_data[1].split("=")[1];
     const token_type = "Bearer";
     const expires_in = get_data[3].split("=")[1];
-    let api_server = get_data[4].split("=")[1];
+    let api_server = get_data[4].split("=")[1].replace("\\", "");
     // the '/' at the end isnt needed
     api_server = api_server.substring(0, api_server.length - 1);
 
@@ -43,7 +43,7 @@ export default function StocksAuth() {
     if (qt_data !== "") {
       fetch(`${backend}/api/stocks/qt-login`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
-        mode: "no-cors",
+        mode: "cors",
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
         headers: {
           // "Content-Type": "application/json",
@@ -87,7 +87,14 @@ export default function StocksAuth() {
         }
       })
       .catch((error) => setError(error));
-    console.log("Hello");
+    console.log("Hello from WS");
+  }
+  //using this function to test out qt login
+  function handleQTLogin() {
+    fetch(`${backend}/api/stocks/qt-login`).then((response) =>
+      console.log(response.data)
+    );
+    console.log("Hello from QT");
   }
   return (
     <>
@@ -99,7 +106,7 @@ export default function StocksAuth() {
         >
           <Button>Questrade Login</Button>
         </a>
-
+        <Button onClick={handleQTLogin}>New QT Login</Button>
         <Button onClick={handleWSLogin}>WealthSimple Login</Button>
         <Button onClick={handleLogin}> Go to Stocks</Button>
       </VStack>

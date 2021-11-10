@@ -19,8 +19,20 @@ export default function Unauthorized() {
     }
   }
   return (
-    <div>
-      Unauthorized<Button onClick={handleLogout}>Logout</Button>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        marginTop: "25px",
+      }}
+    >
+      {error}
+      <h2>Sorry you are unauthorized for this application!</h2>
+      <div>
+        <Button onClick={handleLogout}>Logout</Button>
+      </div>
     </div>
   );
 }
