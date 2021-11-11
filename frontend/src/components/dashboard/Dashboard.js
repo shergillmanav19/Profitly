@@ -7,8 +7,10 @@ import PortfolioPositions from "../positions/PortfolioPositions";
 import Watchlist from "../watchlist/Watchlist";
 
 import AccountNames from "../accountNames/AccountNames";
+import { Button } from "@chakra-ui/react";
 
 export default function Dashboard() {
+  const [toggle, setToggle] = useState(false);
   const Delayed = ({ children, waitBeforeShow = 1000 }) => {
     const [isShown, setIsShown] = useState(false);
 
@@ -28,7 +30,10 @@ export default function Dashboard() {
     e.preventDefault();
     setAccountName(e.target.value);
   };
-
+  const handleToggle = (e) => {
+    e.preventDefault();
+    setToggle(!toggle);
+  };
   return (
     <>
       <div className="container-graph">
@@ -40,7 +45,12 @@ export default function Dashboard() {
       </div>
       <div>
         <div className="wtch-pos-container">
-          <PortfolioPositions accountName={accountName} />
+          <Button onClick={handleToggle}>Show Positions</Button>
+          {toggle ? (
+            <PortfolioPositions accountName={accountName} />
+          ) : (
+            <div>Positions hidden</div>
+          )}
           <Watchlist />
         </div>
       </div>
