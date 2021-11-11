@@ -20,25 +20,39 @@ export default function Graph({ accountName = "tfsa" }) {
     //ENV VAR
     const backend = process.env.REACT_APP_BACKEND_URL;
     // -----------------------------------------------
-    const request = async () => {
-      await fetch(
-        `${backend}/api/stocks/getBalance/${selectedButton}/${accountName}`
-      )
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error("Something went wrong");
-          }
-        })
-        .then((data) => {
-          setPortfolioData(data.data);
-          setNetDeposit(data.netDeposit);
-          console.log(data);
-        })
-        .catch((error) => console.log(error));
-    };
-    request();
+    // const request = async () => {
+    //   await fetch(
+    //     `${backend}/api/stocks/getBalance/${selectedButton}/${accountName}`
+    //   )
+    //     .then((response) => {
+    //       if (response.ok) {
+    //         return response.json();
+    //       } else {
+    //         throw new Error("Something went wrong");
+    //       }
+    //     })
+    //     .then((data) => {
+    //       setPortfolioData(data.data);
+    //       setNetDeposit(data.netDeposit);
+    //       console.log(data);
+    //     })
+    //     .catch((error) => console.log(error));
+    // };
+    // request();
+    fetch(`${backend}/api/stocks/getBalance/${selectedButton}/${accountName}`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Something went wrong");
+        }
+      })
+      .then((data) => {
+        setPortfolioData(data.data);
+        setNetDeposit(data.netDeposit);
+        console.log(data);
+      })
+      .catch((error) => console.log(error));
   }, [accountName, selectedButton]);
 
   return (
