@@ -13,3 +13,12 @@
   background-color: #f9f8f7;
   width: 100%;
 }
+.bt-container {
+  display: flex;
+  /* margin: 0.5rem; */
+  /* padding: 40px 80px; */
+  justify-content: space-around;
+  box-sizing: border-box;
+  background-color: #f9f8f7;
+  width: 100%;
+}

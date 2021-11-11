@@ -12,8 +12,8 @@ function calcAllTimeReturn(moneyNow, moneyIPutIn) {
 export default function PortfolioPositions({ accountName = "tfsa" }) {
   const [WS_positionsData, set_WS_PositionsData] = useState([]);
   const [QT_positionsData, set_QT_PositionsData] = useState([]);
-  // const [WS_netDeposit, set_WS_netDeposit] = useState();
-  // const [QT_netDeposit, set_QT_netDeposit] = useState([]);
+  const [WS_netDeposit, set_WS_netDeposit] = useState();
+  const [QT_netDeposit, set_QT_netDeposit] = useState([]);
   const [activePortfolioPositions, setactivePortfolioPositions] =
     useState("ws");
 
@@ -25,25 +25,6 @@ export default function PortfolioPositions({ accountName = "tfsa" }) {
     set_WS_PositionsData([]);
     //ENV VAR
     const backend = process.env.REACT_APP_BACKEND_URL;
-    // -----------------------------------------------
-    // const request = async () =>
-    //   await fetch(`${backend}/api/stocks/getPositions/${accountName}`)
-    //     .then((response) => {
-    //       if (response.ok) {
-    //         return response.json();
-    //       } else {
-    //         throw new Error("Something went wrong");
-    //       }
-    //     })
-    //     .then((data) => {
-    //       set_WS_PositionsData(data.ws_positions);
-    //       set_QT_PositionsData(data.qt_positions);
-    //       set_WS_netDeposit(Number(data.ws_netDeposit).toFixed(0));
-    //       set_QT_netDeposit(Number(data.qt_netDeposit).toFixed(0));
-    //     })
-    //     .catch((error) => console.log(error));
-
-    // request();
     fetch(`${backend}/api/stocks/getPositions/${accountName}`)
       .then((response) => {
         if (response.ok) {
@@ -55,8 +36,8 @@ export default function PortfolioPositions({ accountName = "tfsa" }) {
       .then((data) => {
         set_WS_PositionsData(data.ws_positions);
         set_QT_PositionsData(data.qt_positions);
-        // set_WS_netDeposit(Number(data.ws_netDeposit).toFixed(0));
-        // set_QT_netDeposit(Number(data.qt_netDeposit).toFixed(0));
+        set_WS_netDeposit(Number(data.ws_netDeposit).toFixed(0));
+        set_QT_netDeposit(Number(data.qt_netDeposit).toFixed(0));
       })
       .catch((error) => console.log(error));
   }, [accountName]);
@@ -110,9 +91,9 @@ export default function PortfolioPositions({ accountName = "tfsa" }) {
                   >
                     <Text fontSize="md" fontWeight="bold">
                       Initial Deposit:{" "}
-                      {/* {activePortfolioPositions.includes("ws")
+                      {activePortfolioPositions.includes("ws")
                         ? WS_netDeposit
-                        : QT_netDeposit}{" "} */}
+                        : QT_netDeposit}{" "}
                       {activePortfolioPositions.includes("ws") ? 60 : 10}
                       CAD
                     </Text>

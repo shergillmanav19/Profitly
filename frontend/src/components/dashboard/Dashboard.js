@@ -10,48 +10,45 @@ import AccountNames from "../accountNames/AccountNames";
 import { Button } from "@chakra-ui/react";
 
 export default function Dashboard() {
-  const [toggle, setToggle] = useState(false);
-  const Delayed = ({ children, waitBeforeShow = 1000 }) => {
-    const [isShown, setIsShown] = useState(false);
-
-    useEffect(() => {
-      console.log(waitBeforeShow);
-      setTimeout(() => {
-        setIsShown(true);
-      }, waitBeforeShow);
-    }, [waitBeforeShow]);
-
-    return isShown ? children : null;
-  };
-
+  const [posToggle, setPosToggle] = useState(false);
+  const [watchlistToggle, setWatchlistToggle] = useState(false);
+  //default is TFSA
   const [accountName, setAccountName] = useState("tfsa");
 
   const handleAccountNameChange = (e) => {
     e.preventDefault();
     setAccountName(e.target.value);
   };
-  const handleToggle = (e) => {
+  const handlePosToggle = (e) => {
     e.preventDefault();
-    setToggle(!toggle);
+    setPosToggle(!posToggle);
+  };
+  const handleWatchlistToggle = (e) => {
+    e.preventDefault();
+    setWatchlistToggle(!watchlistToggle);
   };
   return (
     <>
       <div className="container-graph">
         <Graph accountName={accountName} />
-        {/* <Delayed>
-          <div></div>
-        </Delayed> */}
         <AccountNames handleChange={handleAccountNameChange} />
       </div>
       <div>
+        <div className="bt-container">
+          <Button onClick={handlePosToggle}>
+            {posToggle ? "Hide" : "Show"} Positions
+          </Button>
+          <Button onClick={handleWatchlistToggle}>
+            {watchlistToggle ? "Hide" : "Show"} Watchlist
+          </Button>
+        </div>
         <div className="wtch-pos-container">
-          <Button onClick={handleToggle}>Show Positions</Button>
-          {toggle ? (
+          {posToggle ? (
             <PortfolioPositions accountName={accountName} />
           ) : (
-            <div>Positions hidden</div>
+            <div></div>
           )}
-          <Watchlist />
+          {watchlistToggle ? <Watchlist /> : <div></div>}
         </div>
       </div>
     </>
