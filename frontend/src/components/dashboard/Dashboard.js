@@ -33,14 +33,15 @@ export default function Dashboard() {
     <>
       <div className="container-graph">
         <Graph accountName={accountName} />
+        {/* <Delayed>
+          <div></div>
+        </Delayed> */}
         <AccountNames handleChange={handleAccountNameChange} />
       </div>
       <div>
         <div className="wtch-pos-container">
-          <Delayed>
-            <PortfolioPositions accountName={accountName} />
-            <Watchlist />
-          </Delayed>
+          <PortfolioPositions accountName={accountName} />
+          <Watchlist />
         </div>
       </div>
     </>
