@@ -25,3 +25,4 @@ yarn-error.log*
 #backend
 ../api/
 ../api_bk/
+../api_bk2/

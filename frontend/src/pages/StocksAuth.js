@@ -4,13 +4,15 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useHistory, useLocation, Redirect } from "react-router-dom";
 import Navbar from "../components/navbar/Navbar";
+import { CheckIcon } from "@chakra-ui/icons";
+
 export default function StocksAuth() {
   //ENV VARS
   const qtrade_key = process.env.REACT_APP_QTRADE_API_KEY;
   const backend = process.env.REACT_APP_BACKEND_URL;
-
   const history = useHistory();
-
+  const [isQTLoggedin, setisQTLoggedin] = useState(false);
+  const [isWSLoggedin, setisWSLoggedin] = useState(false);
   //questrade login process
   let curURL = useLocation();
   curURL = curURL.hash;
@@ -91,24 +93,51 @@ export default function StocksAuth() {
   }
   //using this function to test out qt login
   function handleQTLogin() {
-    fetch(`${backend}/api/stocks/qt-login`).then((response) =>
-      console.log(response.data)
-    );
-    console.log("Hello from QT");
+    fetch(`${backend}/api/stocks/qt-login`).then((response) => {
+      if (response.ok) {
+        setisQTLoggedin(true);
+        console.log(response.json());
+      } else {
+        console.log("An error occured while logging into Questrade");
+      }
+    });
   }
   return (
     <>
       <VStack>
         {error}
-        <Navbar handleLogout={handleLogout} />
-        <a
-          href={`https://login.questrade.com/oauth2/authorize?client_id=${qtrade_key}&response_type=token&redirect_uri=https://auth-profitly-dev.web.app/stocksauth`}
+        <Navbar buttons={"stocksauth"} handleLogout={handleLogout} />
+        {/* Disable button once logged in to prevent spamming */}
+        <Button
+          onClick={handleQTLogin}
+          disabled={isQTLoggedin}
+          style={{ marginTop: "10px" }}
         >
-          <Button>Questrade Login</Button>
-        </a>
-        <Button onClick={handleQTLogin}>New QT Login</Button>
-        <Button onClick={handleWSLogin}>WealthSimple Login</Button>
-        <Button onClick={handleLogin}> Go to Stocks</Button>
+          {!isQTLoggedin ? "Questrade Login" : "Log In Successful"}
+        </Button>
+        <Button
+          onClick={handleWSLogin}
+          disabled={!isQTLoggedin}
+          style={{ marginTop: "10px" }}
+        >
+          WealthSimple Login
+        </Button>
+        <div
+          style={{
+            backgroundColor: "#3a4454",
+            color: "white",
+            width: "50%",
+            borderRadius: "10px",
+            marginTop: "10px",
+          }}
+        >
+          <span style={{ fontWeight: "bold" }}>NOTE:</span> Please Log in to
+          Questrade first then Wealthsimple. After you enter your OTP for
+          Wealthsimple the app should take you to your portfolio page.
+          <p style={{ fontWeight: "bold", color: "red" }}>
+            The app will not work if the stated steps are not followed.
+          </p>
+        </div>
       </VStack>
     </>
   );

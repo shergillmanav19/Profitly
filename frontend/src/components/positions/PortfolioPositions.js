@@ -36,8 +36,8 @@ export default function PortfolioPositions({ accountName = "tfsa" }) {
       .then((data) => {
         set_WS_PositionsData(data.ws_positions);
         set_QT_PositionsData(data.qt_positions);
-        set_WS_netDeposit(Number(data.ws_netDeposit).toFixed(0));
-        set_QT_netDeposit(Number(data.qt_netDeposit).toFixed(0));
+        // set_WS_netDeposit(Number(data.ws_netDeposit).toFixed(0));
+        // set_QT_netDeposit(Number(data.qt_netDeposit).toFixed(0));
       })
       .catch((error) => console.log(error));
   }, [accountName]);
@@ -78,7 +78,7 @@ export default function PortfolioPositions({ accountName = "tfsa" }) {
                 </Button>
               </Box>
               <Flex flexDirection="column">
-                <Box padding="4px">
+                {/* <Box padding="4px">
                   <Box
                     // bg="white"
                     color="white"
@@ -94,11 +94,10 @@ export default function PortfolioPositions({ accountName = "tfsa" }) {
                       {activePortfolioPositions.includes("ws")
                         ? WS_netDeposit
                         : QT_netDeposit}{" "}
-                      {activePortfolioPositions.includes("ws") ? 60 : 10}
                       CAD
                     </Text>
                   </Box>
-                </Box>
+                </Box> */}
                 <Box padding="4px">
                   <Box
                     bg="white"
