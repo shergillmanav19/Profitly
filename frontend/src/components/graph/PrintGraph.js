@@ -1,5 +1,4 @@
 import { React } from "react";
-// import { Line } from "react-chartjs-2";
 import "./styles/graph.css";
 import {
   AreaChart,
@@ -8,7 +7,6 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-  Text,
 } from "recharts";
 import { format, parseISO } from "date-fns";
 

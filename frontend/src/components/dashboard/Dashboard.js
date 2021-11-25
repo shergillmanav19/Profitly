@@ -27,8 +27,7 @@ export default function Dashboard() {
     e.preventDefault();
     setWatchlistToggle(!watchlistToggle);
   };
-  //TODO: FIX THE WHITE COLOR AFTER SHOW POSITIONS AND SHOW WATCLIST
-  // MAYBE CHANGE THE BUTTON COLORS TOO?
+
   return (
     <>
       <div className="container-graph">

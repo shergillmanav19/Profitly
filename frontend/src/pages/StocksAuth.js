@@ -64,12 +64,7 @@ export default function StocksAuth() {
         .catch((error) => console.log(error));
     }
   }, [backend, qt_data]);
-  //make a session state that updates so that the app knows if user is logged in for ws and qt
-  async function handleLogin() {
-    try {
-      history.push("/main");
-    } catch {}
-  }
+
   async function handleLogout() {
     try {
       setError("");

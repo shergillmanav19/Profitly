@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./styles/Otp.css";
 import { Form, Button, Card, Alert, Container } from "react-bootstrap";
-import { useHistory, useLocation, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function Otp() {
   //ENV VAR
@@ -27,30 +27,13 @@ export default function Otp() {
       body: otp, // body data type must match "Content-Type" header
     }).then((response) => {
       if (response.status === 200) {
-        // console.log(response);
-        console.log(response.data);
         history.push("/main");
       } else {
         setError("The code you entered is invalid!");
       }
     });
+  }
 
-    // code not invalid then only push main
-  }
-  function getPos() {
-    fetch(`${backend}/api/ws/getWatchlist`)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Something went wrong");
-        }
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => console.log(error));
-  }
   return (
     <Container
       className="d-flex align-items-center justify-content-center"
@@ -86,7 +69,6 @@ export default function Otp() {
             </Form>
           </Card.Body>
         </Card>
-        <Button onClick={getPos}>Get pos</Button>
       </div>
     </Container>
   );

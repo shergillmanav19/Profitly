@@ -78,6 +78,7 @@ export default function PortfolioPositions({ accountName = "tfsa" }) {
                 </Button>
               </Box>
               <Flex flexDirection="column">
+                {/* The following code is for net deposits which are not configured by me yet */}
                 {/* <Box padding="4px">
                   <Box
                     // bg="white"

@@ -1,6 +1,5 @@
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 export default function useGetPortfolioData() {
-  // const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const funtionretrevial = useCallback((selectedButton, accountName) => {
     // default to 1m and tfsa
