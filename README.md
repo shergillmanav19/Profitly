@@ -1,4 +1,11 @@
 # Profitly
+How to use:
+
+I have made the app's login functionality that only an admin user can login and view my investments. Therefore, i would have to present the demo of the web app to you over zom/google hangouts.
+
+You can create a user, i use firebase auth to handle it for me; however, you will be redirected to an unauthorized page. I chose this route because i didnt want to handle a user's sensitive information (their emails and passwords for investment exchanges) and just wanted a tracking app for myself.
+
+App details:
 
 Building an investment tracking app that will allow visualization of my investment portfolio in stocks and crypto.
 
